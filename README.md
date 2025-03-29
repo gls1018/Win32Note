@@ -10,7 +10,66 @@ Win32窗口按照一下顺序创建:
 - 消息循环
 - 窗口过程 WndProc
 
-##### WNDCLASSEX数据结构
+```cpp
+#include <windows.h>
+#include <tchar.h>
+
+LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
+
+int wWinMain(HINSTANCE hInstance, HINSTANCE hPreIns, LPWSTR lpCmdLine, int nShowCmd)
+{
+	TCHAR szWndClassName[] = __T("MyWindow");
+	TCHAR szAppName[] = __T("Hello Window");
+
+	WNDCLASSEX wndclass{ 0 };
+	wndclass.cbClsExtra = 0;
+	wndclass.cbSize = sizeof(wndclass);
+	wndclass.cbWndExtra = 0;
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
+	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wndclass.hIconSm = NULL;
+	wndclass.hInstance = hInstance;
+	wndclass.lpfnWndProc = WindowProc;
+	wndclass.lpszClassName = szWndClassName;
+	wndclass.lpszMenuName = NULL;
+	wndclass.style = CS_HREDRAW | CS_VREDRAW | CS_NOCLOSE | CS_DBLCLKS;
+
+	RegisterClassEx(&wndclass);
+
+	DWORD dwExStyle = WS_EX_TOPMOST;
+	DWORD dwStyle = WS_OVERLAPPEDWINDOW;
+	HWND hWnd = CreateWindowEx(dwExStyle, wndclass.lpszClassName, szAppName, dwStyle, 
+		800, 380, 860, 560, 
+		NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, nShowCmd);
+	UpdateWindow(hWnd);
+
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0)!= 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	return -1;
+}
+
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
+{
+	switch (msg)
+	{
+		case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+	}
+	return DefWindowProc(hWnd, msg, wPara, lPara);
+}
+```
+
+WNDCLASSEX数据结构如下:
 
 ```cpp
 typedef struct _WNDCLASSEX {
@@ -91,11 +150,63 @@ HWND CreateWindowEx(
 
 - dwStyle:  窗口样式，
 
-  ​	-  `WS_POPUP`:弹出式窗口,没有标题栏和边框,只有客户区
+  (1)`WS_POPUP`:弹出式窗口,没有标题栏和边框,只有客户区
 
-  ​	- `WS_OVERLAPPED`:重叠式窗口,自带标题栏
+  (2) `WS_OVERLAPPED`:重叠式窗口,自带标题栏
 
-<img src="assets/image-20240802073232287-1743258065733-2.png" alt="image-20240802073232287" style="zoom: 33%;" />
+​	<img src="assets/1.png" alt="1.png" style="zoom: 25%;" />
+
+
+
+
+
+​	(3)`WS_SIZEBOX`: 窗口可以手动调节大小.
+
+​	<img src="assets/WS_SIZEBOX.gif" alt="WS_SIZEBOX" style="zoom:50%;" />
+
+
+
+​	(4)`WS_SYSMENU`: 标题栏有一个窗口菜单,显而易见，当指定了WS_SYSMENU的时候,也就默认有WS_CAPTION(或者说WS_OVERLAPPED)了. 可以很明显看到多了一个`X`按钮和图标,并且右击标题栏也会弹出菜单.
+
+<img src="assets/3.png" alt="3.png" style="zoom:50%;" />
+
+
+
+
+
+## 消息机制
+Windows系统是基于消息机制的。 操作系统有一个系统消息队列, 应用程序每个`GUI线程`有一个线程消息队列(`没有所谓的进程消息队列`), 线程一开始创建的时候并没有消息队列,只有线程第一次调用GDI函数(`User32.dll或者gdi32.dll中的函数时`),系统才会为它创建消息队列，也就是非GUI线程是没有消息队列的，同时一个线程也只有一个消息队列，但可以有多个窗口, 这些窗口共用一个消息队列,正常UI线程会启动一个消息循环,不断从线程消息队列中取出消息交给窗口过程函数`WndProc`去处理.
+
+消息结构体如下:
+
+```cpp
+struct MSG
+{
+    HWND hWnd;         // 产生消息的窗口的句柄
+    UINT UMsgId;       // 消息ID
+    WPARAM wParam;     // 附带参数
+    LPARAM lParam;     // 附带参数
+    DWORD time;        // 消息产生的时间
+    POINT pt;          // 消息产生时在屏幕上的坐标
+}
+```
+
+一个简单的消息循环如下:
+
+```cpp
+MSG msg;
+BOOL bRet = GetMessage(&msg, hWnd, 0, 0);
+while (bRet != -1 && bRet != 0 )
+{
+    TranslateMessage(&msg);
+    DispatchMessage(&msg);
+    bRet = GetMessage(&msg, hWnd, 0, 0);
+}
+```
+
+
+
+
 
 ## 内存相关API
 
