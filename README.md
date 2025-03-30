@@ -22,8 +22,6 @@ Win32窗口按照一下顺序创建:
 ```cpp
 #include <windows.h>
 #include <tchar.h>
-```
-
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -82,7 +80,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 }
 ```
 </details>
-```
 
 
 WNDCLASSEX数据结构如下:
