@@ -3,16 +3,27 @@
 Win32窗口按照一下顺序创建:
 
 - 定义窗口 (WNDCLASSEX 结构体)
+
 - 注册窗口 (RegisterClassEx)
+
 - 创建窗口 
+
 - 显示窗口
+
 - 更新窗口 (非必须???)
+
 - 消息循环
+
 - 窗口过程 WndProc
+
+<details>
+<summary>第一个窗口程序代码，点击展开</summary>
 
 ```cpp
 #include <windows.h>
 #include <tchar.h>
+```
+
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -34,18 +45,19 @@ int wWinMain(HINSTANCE hInstance, HINSTANCE hPreIns, LPWSTR lpCmdLine, int nShow
 	wndclass.lpszClassName = szWndClassName;
 	wndclass.lpszMenuName = NULL;
 	wndclass.style = CS_HREDRAW | CS_VREDRAW | CS_NOCLOSE | CS_DBLCLKS;
-
+	
 	RegisterClassEx(&wndclass);
-
+	
 	DWORD dwExStyle = WS_EX_TOPMOST;
 	DWORD dwStyle = WS_OVERLAPPEDWINDOW;
+	
 	HWND hWnd = CreateWindowEx(dwExStyle, wndclass.lpszClassName, szAppName, dwStyle, 
 		800, 380, 860, 560, 
 		NULL, NULL, hInstance, NULL);
-
+	
 	ShowWindow(hWnd, nShowCmd);
 	UpdateWindow(hWnd);
-
+	
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0)!= 0)
 	{
@@ -59,6 +71,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 {
 	switch (msg)
 	{
+	
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
@@ -68,6 +81,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 	return DefWindowProc(hWnd, msg, wPara, lPara);
 }
 ```
+</details>
+```
+
 
 WNDCLASSEX数据结构如下:
 
