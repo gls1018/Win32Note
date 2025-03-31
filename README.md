@@ -221,6 +221,103 @@ while (bRet != -1 && bRet != 0 )
 
 ### 一些常见消息和处理
 
+##### WM_NCCREATE 
+
+在调用`CreateWindow`或者`CreateWindowEx`时会产生该消息. 产生的顺序如下
+
+- WM_NCCREATE
+- WM_NCCALCSIZE
+- WM_CREATE
+
+附带信息
+
+- wParam: 0
+
+- lParam: 指向`CREATESTRUCT`结构体的指针。
+
+```cpp
+typedef struct tagCREATESTRUCT {
+    LPVOID lpCreateParams;  // CreateWindowEx 的 lParam 参数
+    HINSTANCE hInstance;    // 当前应用程序实例句柄
+    HMENU hMenu;            // 菜单句柄
+    HWND hwndParent;        // 父窗口句柄
+    int cy;                 // 窗口高度
+    int cx;                 // 窗口宽度
+    int y;                  // 窗口初始位置 (y 坐标)
+    int x;                  // 窗口初始位置 (x 坐标)
+    LONG style;             // 窗口样式
+    LPCSTR lpszName;        // 窗口名称
+    LPCSTR lpszClass;       // 窗口类名
+    DWORD dwExStyle;        // 扩展窗口样式
+} CREATESTRUCT;
+```
+
+lParam参数的附带信息,其实就是调用`CreateWindowEX`函数时的传递的参数信息.
+
+
+
+自定义处理：
+
+- 返回值必须为`TRUE`
+
+
+
+##### WM_CREATE
+
+调用`CreateWindowEx`函数时，系统会发送此消息到`WindowProc`, 
+
+附带信息:
+
+- wParam: 0
+- lParam: 指向CREATESTRUCT结构体的指针
+
+自定义处理:
+
+- 自定义处理该消息时,一般是创建子控件或者加载资源.
+- 返回值为0,表示成功，返回-1，`CreateWindow`函数将返回`NULL`
+
+```cpp
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_CREATE:
+    {
+        CREATESTRUCT* pcs = (CREATESTRUCT*)lParam;
+        LPVOID lpParam = pcs->lpCreateParams;
+
+        // 例如，创建一个按钮控件
+        HWND hButton = CreateWindow(
+            "BUTTON", "Click Me",
+            WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+            20, 20, 100, 30,
+            hwnd, (HMENU)1, pcs->hInstance, NULL
+        );
+
+        if (!hButton)
+        {
+            return -1;  // 返回 -1 表示窗口创建失败
+        }
+
+        return 0;  // 成功处理 WM_CREATE
+    }
+
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+    }
+
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+```
+
+
+
+
+
+
+
 ##### WM_DROPFILES
 
 以下几种情况当用户拖拽文件到窗口上时会触发WM_DROPFILES消息.
@@ -231,8 +328,12 @@ while (bRet != -1 && bRet != 0 )
 附带信息：
 
 - wParam:HDROP类型的指针
-
 - lParam: 0
+
+自定义处理:
+
+- 处理`WM_DROPFILES`消息时,主要通过`DragQueryFile`函数来实现, 该函数既可以得到拖拽文件的数量,也可以得到每个文件的路径
+- 
 
 ```cpp
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
@@ -240,7 +341,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
     switch(uMsg)
     {
         case WM_DROPFILES:
-            {
+		{
                 HDROP hDrop = reinterpret_cast<HDROP>(wPara);
                 //先查询一下文件的数量
                 UINT uFileCount = DragQueryFile(hDrop, 0xFFFFFFFF, szFilePath, 0);
@@ -253,13 +354,17 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
                     memset(szFilePath, 0, MAX_PATH);
 				}
                 DragFinish(hDrop);
-            }
+		}
 	}
     return DefWindowProc(hWnd, uMsg, wPara, lPara);
 }
 ```
 
 
+
+补充:
+
+`DragAcceptFiles`函数作用于`EDIT`控件,可以让用户拖拽文件到文本框.
 
 ## 内存相关API
 
@@ -269,7 +374,32 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
 
 
 
-## 线程操作相关API
+## 线程相关操作
+
+### 线程池
+
+### 线程同步
+
+### 线程局部存储(TLS--Thread Local Storage)
+
+Windows系统中可以通过四种方法来实现线程局部存储.
+
+- __declspec(thread),  通过MSVC编译器实现
+- thread_local, 通过C++11关键字thread_local实现
+- TlsAlloc, TlsSetValue, TlsGetValue, TlsFree,  通过TLS API实现
+- FlsAlloc .....  也是通过Win32API来实现
+
+
+
+
+
+## 异常处理
+
+
+
+## 调试支持
+
+
 
 
 
