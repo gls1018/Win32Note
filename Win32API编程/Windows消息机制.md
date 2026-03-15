@@ -3,7 +3,8 @@
 Windows系统是基于消息机制的。 操作系统有一个系统消息队列, 应用程序每个`GUI线程`有一个线程消息队列(`没有所谓的进程消息队列`), 线程一开始创建的时候并没有消息队列,只有线程第一次调用GDI函数(`User32.dll或者gdi32.dll中的函数时`),系统才会为它创建消息队列，也就是非GUI线程是没有消息队列的，同时一个线程也只有一个消息队列，但可以有多个窗口, 这些窗口共用一个消息队列,正常UI线程会启动一个消息循环,不断从线程消息队列中取出消息交给窗口过程函数`WndProc`去处理.
 
 
-**MSG结构体**
+## MSG结构体
+
 ```cpp
 struct MSG
 {
@@ -19,6 +20,7 @@ struct MSG
 ## 常见消息处理
 
 ### WM_NCCREATE
+
 在调用`CreateWindow`或者`CreateWindowEx`时会产生该消息. 产生的顺序如下
 - WM_NCCREATE
 - WM_NCCALCSIZE
@@ -51,6 +53,7 @@ lParam参数的附带信息,其实就是调用`CreateWindowEX`函数时的传递
 
 
 ### WM_CREATE
+
 调用`CreateWindowEx`函数时，系统会发送此消息到`WindowProc`.
 附带信息:
 - wParam: 0
@@ -95,6 +98,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 ```
 
 ### WM_DROPFILES
+
 以下几种情况当用户拖拽文件到窗口上时会触发WM_DROPFILES消息.
 
 - 在调用CreateWindowEx函数时设置了窗口扩展属性`WS_ACCEPTFILES`
@@ -135,3 +139,5 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wPara, LPARAM lPara)
 `DragAcceptFiles`函数作用于`EDIT`控件,可以让用户拖拽文件到文本框.
 
 ### WM_SETCURSOR
+
+### WM_NCHITTEST
