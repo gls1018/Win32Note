@@ -10,7 +10,7 @@
 - [编辑框控件:](./Win32API编程/编辑框控件.md)
 - [Menu 控件](./Win32API编程/菜单控件.md)
 - [资源文件.rc]()
-- [Accerate 加速键]()
+- [Accerate 加速键](./Win32API编程/加速键.md)
 
 #### GDI绘图
 - [Win32 Gdi绘图基础](./Win32API编程/Win32GDI绘图基础.md)
