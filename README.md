@@ -2,6 +2,11 @@
 
 - [1. 第一个窗口程序](./Win32API编程/第一个窗口程序.md)
 - [2. Windows消息机制](./Win32API编程/Windows消息机制.md)
+- 常见消息处理
+  - [WM_SYSCOMMAND]()
+  - [WM_PAINT]()
+  - [WM_NCCREATE && WM_CREATE]()
+
 - [3. Win32数据类型和编码](./Win32API编程/Win32数据类型和编码.md)
 - [4. 对话框窗口](./Win32API编程/对话框窗口.md)
 ----
@@ -11,6 +16,9 @@
 - [Menu 控件](./Win32API编程/菜单控件.md)
 - [资源文件.rc]()
 - [Accerate 加速键](./Win32API编程/加速键.md)
+- [系统托盘操作]()
+
+
 
 #### GDI绘图
 - [Win32 Gdi绘图基础](./Win32API编程/Win32GDI绘图基础.md)
@@ -21,9 +29,6 @@
   
 
 - ### PE文件
-
-
-
 
 
 ### 进程和线程

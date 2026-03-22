@@ -17,7 +17,60 @@ struct MSG
 }
 ```
 
-## 常见消息处理
+## API函数
+
+### GetMessage
+
+从线程消息队列中抓消息,  抓到 `WM_QUIT`消息时, 返回`FALSE`.
+
+```cpp
+BOOL GetMessage(
+  [out]          LPMSG lpMsg,
+  [in, optional] HWND  hWnd,
+  [in]           UINT  wMsgFilterMin,
+  [in]           UINT  wMsgFilterMax
+);
+```
+
+
+
+### PeekMessgae
+
+### TranslateMessage
+
+### DispatchMessage
+
+
+
+## 常见情况下的消息处理
+
+### 用户点`x`关闭窗口时的消息流程.
+
+```cpp
+用户点击 X
+   ↓
+WM_SYSCOMMAND (wParam = SC_CLOSE)
+   ↓
+WM_CLOSE
+   ↓
+WM_DESTROY
+   ↓
+WM_NCDESTROY
+   ↓
+WM_QUIT（不是发给窗口的）
+```
+
+### `DefWindowProc`对一些消息是怎样默认处理的?
+
+
+
+
+### WM_SYSCOMMAND的消息解读
+
+
+
+
+## 一些消息处理流程
 
 ### WM_NCCREATE
 
