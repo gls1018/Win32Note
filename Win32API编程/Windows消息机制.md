@@ -1,9 +1,9 @@
 
-## 消息机制介绍
+## 1.前言
 Windows系统是基于消息机制的。 操作系统有一个系统消息队列, 应用程序每个`GUI线程`有一个线程消息队列(`没有所谓的进程消息队列`), 线程一开始创建的时候并没有消息队列,只有线程第一次调用GDI函数(`User32.dll或者gdi32.dll中的函数时`),系统才会为它创建消息队列，也就是非GUI线程是没有消息队列的，同时一个线程也只有一个消息队列，但可以有多个窗口, 这些窗口共用一个消息队列,正常UI线程会启动一个消息循环,不断从线程消息队列中取出消息交给窗口过程函数`WndProc`去处理.
 
 
-## MSG结构体
+## 2. MSG结构体
 
 ```cpp
 struct MSG
@@ -17,9 +17,9 @@ struct MSG
 }
 ```
 
-## API函数
+## 3. 相关API
 
-### GetMessage
+### 3.1 GetMessage
 
 从线程消息队列中抓消息,  抓到 `WM_QUIT`消息时, 返回`FALSE`.
 
@@ -34,15 +34,15 @@ BOOL GetMessage(
 
 
 
-### PeekMessgae
+### 3.2 PeekMessgae
 
-### TranslateMessage
+### 3.3 TranslateMessage
 
-### DispatchMessage
+### 3.4 DispatchMessage
 
 
 
-## 常见情况下的消息处理
+## 4. 常见消息处理
 
 ### 用户点`x`关闭窗口时的消息流程.
 
