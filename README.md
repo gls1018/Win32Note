@@ -8,10 +8,17 @@
 - [常见消息处理]()
   - [WM_SYSCOMMAND 和 WM_COMMAND](./Win32API编程/WM_COMMAND和WM_SYSCOMMAND.md)
   - [WM_NCHITTEST](./Win32API编程/WM_NCHITTEST消息.md)
-  - [WM_PAINT]()
+  - [WM_PAINT](./Win32API编程/WM_PAINT消息处理.md)
   - [WM_NCCREATE && WM_CREATE]()
+  - [常见的鼠标消息]()
+
+
+
+
+
 - [3. Win32数据类型和编码](./Win32API编程/Win32数据类型和编码.md)
 - [4. 对话框窗口](./Win32API编程/对话框窗口.md)
+
 ----
 - [Button 控件](./Win32API编程/按钮控件.md)
 - [静态文本控件: Static](./Win32API编程/静态文本控件.md)

@@ -1,5 +1,5 @@
 
-## WM_SYSCOMMAND 消息是如何产生的?
+## 1. WM_SYSCOMMAND 消息何时产生
 
 - 用户点击标题栏上的最大化、最小化和关闭按钮
 - 用户鼠标点击标题栏.
@@ -9,7 +9,7 @@
 
 
 
-## WM_SYSCOMMAND 消息的附带信息是什么?
+## 2. WM_SYSCOMMAND 消息的附带信息
 
 - lPara 
   - 鼠标触发: 鼠标坐标
@@ -83,10 +83,10 @@ LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 ```
 
 
-## DefWindowProc 对消息是如何默认处理的?
+## 3. DefWindowProc 对该消息如何处理
 
 
-### 关于 SC_CLOSE
+### 3.1 关于 SC_CLOSE
 
 `WM_SYSCOMMAND(SC_CLOSE)` 通过点击`x`产生.
 DefWindowProc处理过程如下:
@@ -162,7 +162,7 @@ LRESULT CALLBACK DefWindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 }
 ```
 
-## 对 WM_SYSCOMMAND 消息如何自定义处理?
+## 4. WM_SYSCOMMAND 消息自定义处理
 
 
 ## 几个问题和注意点
