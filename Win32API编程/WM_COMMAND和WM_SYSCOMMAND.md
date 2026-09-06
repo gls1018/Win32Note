@@ -1,37 +1,3 @@
-## 1. WM_COMMAND
-
-### 1.1 消息来源
-
-当用户选择菜单项, 控件向父窗口发送通知消息, 或者加速键被触发时, 系统会发送WM_COMMAND消息.
-
-WM_COMMAND消息一共有三个来源
-
-- 菜单 MENU
-- 控件 Control
-- 加速键 Accelerator
-
-
-
-### 1.2 附带参数
-
-当WM_COMMAND来源于菜单时.
-
-- wParam
-  - High Word == 0
-  - Low Word == Menu ID
-- lParam == 0，不用管 
-
-当WM_COMMAND来源于控件时
-
-- wParam
-  - High Word = Notify Code
-  - Low Word = Control ID
-- lParam = Control Hanle.
-
-
-
-当WM_COMMAND来源于加速键时. 和菜单一样, 加速键就是菜单项的快捷键.
-
 
 
 ### 1.3 自定义处理WM_COMMAND

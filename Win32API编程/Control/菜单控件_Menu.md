@@ -1,6 +1,35 @@
-## 菜单创建函数
+## 1. API集合
 
-### CreateMenu
+
+
+- CreateMenu 创建菜单栏 Menu Bar
+- CreatePopMenu  创建弹出菜单
+- DestroyMeny 销毁菜单
+- SetMenu 把菜单设置给窗口
+- GetMenu 获取窗口菜单句柄
+- DrawMenuBar 动态更新菜单后,重新绘制菜单栏
+- AppendMenu 向菜单末尾添加菜单项
+- InsertMenu 在指定位置插入菜单项
+- InsertMenuItem 插入菜单项的增强版本, 功能更加现代
+- ModifyMenu 修改已有菜单项
+- SetMenuItemInfo 修改菜单项的增强版本, 功能更加现代
+- GetMenuItemInfo 获取菜单项信息
+- GetMenuItemCount 获取菜单项数量
+- GetMenuItemID 根据菜单项位置获取ID
+- GetMenuItemRect 获取菜单项在屏幕上的矩形区域
+- RemoveMenu 删除菜单项
+- DeleteMenu 删除菜单项，同时删除子菜单
+- EnableMenuItem 启用菜单项
+- CheckMenuItem 设置菜单项为选中状态
+- CheckMenuRadioItem 用于实现单选菜单项
+
+
+
+
+
+## 1. 创建菜单
+
+### 1.1 CreateMenu
 
 ```cpp
 HMENU CreateMenu(void);
@@ -10,21 +39,34 @@ HMENU CreateMenu(void);
 
 
 
-### CreatePopMenu
+### 1.2 CreatePopMenu
 
 ```cpp
 HMENU CreatePopupMenu(void);
 ```
 
 用途:
-- DropDown Menu
-- SubMenu
-- Shortcut Menu / Context Menu / Right Click Menu  
+- DropDown Menu 下拉菜单
+- SubMenu 子菜单
+- Shortcut Menu / Context Menu / Right Click Menu  右键菜单  
 
-  
-## 菜单项添加函数
 
-### AppendMenu
+
+### 1.3 TrackPopupMenu
+
+
+
+### 1.4 TrackPopupMenuEx
+
+
+
+
+
+## 2. 添加菜单项
+
+### 2.1 AppendMenu
+
+用于在指定的菜单末尾添加一个新的菜单项.
 
 ```cpp
 BOOL AppendMenuA(
@@ -35,14 +77,29 @@ BOOL AppendMenuA(
 )
 ```
 
-### InsertMenu
+- hMenu: 要操作的菜单句柄。可以是顶层菜单或子菜单的句柄。
+- uFlags: 控制菜单项的外观和行为，常用组合见下文
+  - MF_STRING:  最常用，表示菜单项显示文本（`lpNewItem` 为字符串）
+  - MF_POPUP:  表示该项是一个子菜单（`uIDNewItem` 传入子菜单的 `HMENU`)
+  - MF_SEPARATOR: 添加一条分割线（此时 `uIDNewItem` 和 `lpNewItem` 被忽略）
+  - MF_CHECKED:  在项前面显示对勾 ✔
+  - MF_UNCHECKED:  取消对勾（默认）
+  - MF_GRAYED:  禁用并灰显该项，不可点击
+  - MF_DISABLED: 禁用但不灰显（很少单独使用）
+  - MF_ENABLED: 启用（默认）
+  - MF_BYCOMMAND: 通过命令 ID 定位(默认，通常不显式写)
+  - MF_BYPOSITION： 通过位置索引定位（不常用）
+- uIdNewItem: 菜单项的标识符（ID）。当用户点击时，Windows 会通过 `WM_COMMAND` 消息返回此 ID。如果是子菜单，则此处为子菜单句柄。
+- lpNewItem: 菜单项的显示文本（字符串）。如果设置了 `MF_BITMAP` 或 `MF_OWNERDRAW`，则含义不同
+
+### 2.2 InsertMenu
 
 ```cpp
 
 ```
 
 
-### InsertMenuItem
+### 2.3 InsertMenuItem
 
 ```cpp
 BOOL InsertMenuItemA(
@@ -64,7 +121,7 @@ BOOL InsertMenuItemA(
 
 
 
-### MENUITEMINFO 结构体
+### 2.4 MENUITEMINFO 结构体
 
 **`MENUITEMINFO结构体` 是菜单项的完整描述对象.**
 
@@ -89,7 +146,8 @@ typedef struct tagMENUITEMINFOA {
 - fMask: 它的值决定了MENUITEMINFO结构体哪些成员有效. 
 
 
-#### 关于 fMask 解释
+
+#### 2.4.1 关于 fMask 的解释
 
 Win32插入菜单项函数`InsertMenuItem(hMenu, pos, TRUE, &mii)`; 
 系统在拿到MENUITEMINFO后, 它怎么知道你设置了哪些字段? 哪些是垃圾值? 答案是完全依赖 `fMask`.
@@ -161,7 +219,7 @@ mii.fType = MFT_SEPRATOR;
 ```cpp
 mii.fMask = MIIM_SUBMENU | MIIM_STRING;
 mii.hSubeMenu = hSubMenu;
-``` 
+```
 
 **带数据菜单**
 
@@ -176,42 +234,9 @@ mii.fMask = MIIM_ID | MIIM_STRING | MIIM_DATA;
 - AppendMenu能实现的效果, InsertMenu都能实现.
 - InsertMenuItem是InsertMenu的增强版. 所有InsertMenu能实现的功能, InsertMenuItem都能实现.
 
-
-### 插入简单的字符串菜单项
-
-### 插入带快捷键提示的菜单项
+## 
 
 
-
-
-## 菜单显示函数
-
-
-
-## 菜单查询函数
-
-
-
-## 菜单修改函数
-
-
-## 菜单刷新函数
-
-
-## 菜单销毁函数
-
-
-
-
-
-
-### DestroyMenu
-
-
-### TrackPopMenu
-
-
-### TrackPopMenuEx
 
 
 

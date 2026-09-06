@@ -49,9 +49,7 @@ WS_CHILD | WS_VISIBLE 基本上是固定搭配. BS开头是按钮的风格, 有�
   - BS_CHECKBOX
   - BS_AUTOCHECKBOX
 
-
-
-### PushButton
+## 3. PushButton
 
 1. BS_PUSHBUTTON 和 BS_DEFPUSHBUTTON 有什么区别?
 
@@ -101,7 +99,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wPara, LPARAM lPara)
 }
 ```
 
-### RadioButton
+## 4. RadioButton
 
 1. BS_RADIOBUTTON 和 BS_AUTORADIOBUTTON 两种风格有什么不同.
 
@@ -222,7 +220,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 }
 ```
-
 
 **4. 按钮的 State**
 

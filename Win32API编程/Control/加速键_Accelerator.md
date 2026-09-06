@@ -1,10 +1,10 @@
-## 加速键
+## 1. 加速键介绍
 
 加速键就是快捷键. 
 例如, 菜单项中的 `Save` 保存选项的快捷方式一般为 `Ctrl + S`
 当用户按下 Ctrl + S 时, 会发送 `WM_COMMAND` 消息, 通过 `LOWORD(wParam) == IDM_FILE_SAVE` 来触发相应的代码逻辑
 
-### ACCEL结构体
+## 2. ACCEL结构体
 
 ```cpp
 typedef struct tagACCEL 
@@ -22,7 +22,7 @@ typedef struct tagACCEL
   - FVIRTKEY : Key是虚拟键 (Vk_xxx)
   - FNOINVERT: 菜单不高亮,很少用
 
-### CreateAcceleratorTable
+## 3. CreateAcceleratorTable
 
 ```cpp
 HACCEL CreateAcceleratorTableW(
@@ -34,7 +34,7 @@ HACCEL CreateAcceleratorTableW(
 - paccel: ACCEL类型数组指针
 - cAccel: 数组中加速键条目的数量
 
-### TranslateAccelerator
+## 4. TranslateAccelerator
 
 ```cpp
 int TranslateAccelerator(
@@ -46,7 +46,7 @@ int TranslateAccelerator(
 
 作用: 将加速键翻译成 WM_COMMAND 消息
 
-### 示例代码
+## 5. 示例代码
 
 ```cpp
 

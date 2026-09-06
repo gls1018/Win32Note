@@ -1,28 +1,21 @@
-### Win32桌面程序
+### 1. 消息机制
 
 - [1. 第一个窗口程序](./Win32API编程/第一个窗口程序.md)
-- [2. 相关API介绍]()
-  -  [CreateWindowEx](./Win32API编程/CreateWindowEx函数.md)
-  - 
 - [2. Windows消息机制](./Win32API编程/Windows消息机制.md)
-- [常见消息处理]()
-  - [WM_SYSCOMMAND 和 WM_COMMAND](./Win32API编程/WM_COMMAND和WM_SYSCOMMAND.md)
-  - [WM_NCHITTEST](./Win32API编程/WM_NCHITTEST消息.md)
-  - [WM_PAINT](./Win32API编程/WM_PAINT消息处理.md)
-  - [WM_NCCREATE && WM_CREATE]()
-  - [常见的鼠标消息]()
+- [3. 常见消息处理]()
 
 
 
-
-
-- [3. Win32数据类型和编码](./Win32API编程/Win32数据类型和编码.md)
+- [3. 数据类型和编码](./Win32API编程/Win32数据类型和编码.md)
 - [4. 对话框窗口](./Win32API编程/对话框窗口.md)
 
-----
+
+
+## 2. 控件
+
 - [Button 控件](./Win32API编程/按钮控件.md)
 - [静态文本控件: Static](./Win32API编程/静态文本控件.md)
-- [编辑框控件:](./Win32API编程/编辑框控件.md)
+- [Edit控件:](./Win32API编程/Edit控件.md)
 - [Menu 控件](./Win32API编程/菜单控件.md)
 - [资源文件.rc]()
 - [Accerate 加速键](./Win32API编程/加速键.md)
@@ -30,7 +23,16 @@
 
 
 
-#### GDI绘图
+## 3. RC资源文件
+
+- [.rc资源文件]()
+
+
+
+
+
+## 3. GDI
+
 - [Win32 Gdi绘图基础](./Win32API编程/Win32GDI绘图基础.md)
 
 
