@@ -22,7 +22,7 @@ WM_COMMAND消息一共有三个来源
 - wParam
   - High Word = Notify Code
   - Low Word = Control ID
-- lParam = Control Hanle.
+- lParam = Control Handle.
 
 
 
