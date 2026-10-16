@@ -26,18 +26,16 @@ CreateWindowEx()
 
 
 
-
-
-## 2. 自定义处理
-
-消息附带信息
+## 2. 附带信息
 
 - wParam : 0
 - lParam : 指向`CREATESTRUCT`结构体的指针.
 
+## 3. 自定义处理
 
 
-方式一: 完全自定义处理
+
+1. 完全自定义处理
 
 ```cpp
 case WM_NCCREATE: {
@@ -56,7 +54,7 @@ case WM_NCCREATE: {
 }
 ```
 
-方式二: 执行自己的初始化后再调用默认窗口过程
+2. 执行自己的初始化后再调用默认窗口过程
 
 ```cpp
 case WM_NCCREATE: {

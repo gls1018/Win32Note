@@ -1,4 +1,8 @@
-## 1. 附带信息
+## 1. 消息来源
+
+当窗口的客户区(Client Area)大小发生变化时, Windows会向窗口过程发送这个消息.
+
+## 2. 附带信息
 
 wParam 里面是窗口产生WM_SIZE的原因， 包含以下几个宏
 
@@ -17,8 +21,6 @@ SIZE_MAXSHOW和SIZE_MAXHIDE暂时还不知道怎么触发.
 
 
 
-
-
 lParam 是窗口发生变化后的客户区大小. 低16位是客户区宽度, 高16位是客户区高度.
 
 - LOWORD(lParam) 客户区宽度
@@ -28,7 +30,7 @@ lParam 是窗口发生变化后的客户区大小. 低16位是客户区宽度, �
 
 
 
-## 2. 自定义处理
+## 3. 自定义处理
 
 - 返回值: 自定义处理后,需要返回0.
 
@@ -43,15 +45,8 @@ case WM_SIZE:
 {
     int width  = LOWORD(lParam);
     int height = HIWORD(lParam);
-
-    MoveWindow(
-        hEdit,
-        0,
-        0,
-        width,
-        height,
-        TRUE
-    );
+    
+    MoveWindow(hEdit, 0, 0, width, height, TRUE);
     break;
 }
 ```
