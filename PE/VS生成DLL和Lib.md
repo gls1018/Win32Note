@@ -48,8 +48,6 @@ BOOL DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 
 ### 1.2 __declspec(dllexport) 关键字
 
-
-
 假设我们导出两个函数, 可以这样写
 
 ```cpp
