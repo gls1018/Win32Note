@@ -31,7 +31,19 @@ CreateWindowEx()
 - wParam : 0
 - lParam : 指向`CREATESTRUCT`结构体的指针.
 
+
+
+可以通过 CREATESTRUCT结构体指针拿到调用CreateWindowEx函数的参数值.
+
+
+
 ## 3. 自定义处理
+
+自定义处理返回值:
+
+- TRUE : 允许继续创建窗口
+
+- FALSE : 终止窗口创建, CreateWindowEx 返回 NULL.
 
 
 
@@ -63,12 +75,6 @@ case WM_NCCREATE: {
 }
 ```
 
-返回值:
 
-- TRUE : 允许继续创建窗口
-
-- FALSE : 终止窗口创建, CreateWindowEx 返回 NULL.
-
-  
 
 注意: CreateWindowEx函数返回的是窗口句柄, 但是在 WM_NCCREATE 消息中, 窗口句柄已经有效.
