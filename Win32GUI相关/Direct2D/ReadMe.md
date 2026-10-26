@@ -21,9 +21,37 @@ ID2D1Factory是D2D的入口点接口, 用于创建渲染目标, 几何图形, �
 
 
 
+### 2. ID2D1HwndRenderTarget
+
+绘制操作:
+
+- BeginDraw():
+- EndDraw():
+- DrawLine():
+- DrawRectangle():
+- DrawBitmap():
+- DrawGeometry():
+- DrawEllipse():
+- DrawRoundedRectangle():
+- DrawTextLayout():
+- DrawTextW():
+- DrawGlyphRun():
 
 
-### 2. ComPtr
+
+资源创建:
+
+
+
+状态管理:
+
+
+
+属性获取:
+
+- 
+
+### 3. ComPtr
 
 
 

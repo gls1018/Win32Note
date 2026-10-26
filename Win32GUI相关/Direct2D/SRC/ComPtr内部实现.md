@@ -6,8 +6,6 @@
 
 减少内存泄漏、重复释放等问题. 
 
-
-
 ```cpp
 #include <wrl/client.h>
 
@@ -96,13 +94,19 @@ InterfaceType** GetAddressOf() const
 {
     return &ptr_;
 }
+
+InterfaceType** ReleaseAndGetAddressOf()
+{
+    InternalRelease();
+    return &ptr_;
+}
 ```
 
 `Get()` 返回一级指针. 
 
 `GetAddressOf()`返回二级指针.
 
-
+`ReleaseAndGetAddressOf()`
 
 ### 3. 示例
 
