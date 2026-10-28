@@ -27,3 +27,18 @@
 - LockFile
 - UnLockFile
 
+
+
+
+
+### CreateFile
+
+```
+HANDLE CreateFile(
+	LPCWSTR lpFileName,
+	DWORD dwDesiredAccess,
+	DWORD dwSharedMode,
+	
+	);
+```
+
